@@ -3,7 +3,6 @@ package com.github.jairrab.androidutilities.utility.library
 import android.content.Context
 import android.graphics.drawable.Drawable
 import com.github.jairrab.androidutilities.extensionfunctions.*
-import com.jairrab.github.androidutilities.extensionfunctions.*
 import com.github.jairrab.androidutilities.utility.AndroidUtility
 
 internal class AndroidUtilityLibrary(private val context: Context) : AndroidUtility {
