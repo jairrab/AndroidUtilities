@@ -3,18 +3,16 @@ package com.github.jairrab.androidutilities.extensionfunctions
 import android.text.Editable
 import java.util.*
 
-val String.toLowerCaseUs: String
-    get() = this.toLowerCase(Locale.US)
+fun String.toLowerCaseUs() = toLowerCase(Locale.US)
 
-val String.distinctify: String
-    get() = "\u200B$this"
+fun String.distinctify() = "\u200B$this"
 
-val CharSequence.nullIfBlank: CharSequence?
-    get() {
-        if (this.isBlank()) return null
-        return this
-    }
+fun CharSequence.getNullIfBlank() = if (this.isBlank()) null else this
 
 fun String?.toDoubleNumber() = if (this.isNullOrBlank()) 0.0 else this.toDouble()
 
 fun Editable?.toDoubleNumber() = if (this.isNullOrBlank()) 0.0 else this.toString().toDouble()
+
+fun String.extension() = substringAfterLast('.', "")
+
+fun String.isJpgOrPng() = this == "jpg" || this == "png"

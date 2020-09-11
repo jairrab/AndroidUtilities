@@ -1,11 +1,3 @@
-/*
- * Copyright (C) 2020 - All Rights Reserved
- * Unauthorized copying of this file, via any medium is strictly prohibited
- * Proprietary and confidential
- * Created by Antonio Barria <jaybarria@gmail.com>
- * Last modified 8/3/20 4:04 PM
- */
-
 package com.github.jairrab.androidutilities.extensionfunctions
 
 import android.content.Context
