@@ -6,7 +6,7 @@
  * Last modified 8/3/20 4:04 PM
  */
 
-package com.jairrab.github.androidutilities.extensionfunctions
+package com.github.jairrab.androidutilities.extensionfunctions
 
 import android.content.Context
 import android.graphics.Color

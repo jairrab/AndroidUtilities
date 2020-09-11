@@ -1,4 +1,4 @@
-package com.jairrab.github.androidutilities.utility
+package com.github.jairrab.androidutilities.utility
 
 import android.content.Context
 import android.graphics.drawable.Drawable
@@ -6,7 +6,7 @@ import androidx.annotation.AttrRes
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StyleRes
-import com.jairrab.github.androidutilities.utility.library.AndroidUtilityLibrary
+import com.github.jairrab.androidutilities.utility.library.AndroidUtilityLibrary
 
 interface AndroidUtility {
     fun updateThemeStyle(@StyleRes styleId: Int)

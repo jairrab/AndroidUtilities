@@ -1,4 +1,4 @@
-package com.jairrab.github.androidutilities.extensionfunctions
+package com.github.jairrab.androidutilities.extensionfunctions
 
 import android.text.Editable
 import java.util.*

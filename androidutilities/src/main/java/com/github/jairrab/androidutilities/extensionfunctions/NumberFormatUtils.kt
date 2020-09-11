@@ -1,4 +1,4 @@
-package com.jairrab.github.androidutilities.extensionfunctions
+package com.github.jairrab.androidutilities.extensionfunctions
 
 val Double.toSimpleFormattedString: String
     get() {

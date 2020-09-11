@@ -1,4 +1,4 @@
-package com.jairrab.github.androidutilities.extensionfunctions
+package com.github.jairrab.androidutilities.extensionfunctions
 
 import android.content.Context
 import android.graphics.drawable.Drawable
