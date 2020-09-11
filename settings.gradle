@@ -1,0 +1,2 @@
+include ':androidutilities'
+rootProject.name = "AndroidUtilities"
