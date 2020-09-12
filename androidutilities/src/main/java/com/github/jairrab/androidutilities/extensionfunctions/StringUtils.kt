@@ -15,4 +15,5 @@ fun Editable?.toDoubleNumber() = if (this.isNullOrBlank()) 0.0 else this.toStrin
 
 fun String.extension() = substringAfterLast('.', "")
 
-fun String.isJpgOrPng() = this == "jpg" || this == "png"
+fun String.isJpgOrPng() = this.extension().equals("jpg", true) ||
+    this.extension().equals("png", true)
