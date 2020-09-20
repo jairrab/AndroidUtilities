@@ -44,6 +44,7 @@
     <color name="color_blue_500_50t">#4A2196F3</color>
     <color name="color_blue_500_60t">#992196F3</color>
     <color name="color_blue_500_70t">#B32196F3</color>
+    <color name="color_blue_500_80t">#CC2196F3</color>
     <color name="color_blue_600">#1E88E5</color>
     <color name="color_blue_700">#1976D2</color>
     <color name="color_blue_800">#1565c0</color>
@@ -131,6 +132,7 @@
     <color name="color_deeporange_600">#F4511E</color>
     <color name="color_deeporange_700">#e64a19</color>
     <color name="color_deeporange_800">#d84315</color>
+    <color name="color_deeporange_800_80t">#CCd84315</color>
     <color name="color_deeporange_900">#bf360c</color>
 
     <color name="color_brown_200">#BCAAA4</color>
@@ -153,6 +155,7 @@
     <color name="color_green_600_80T">#CC43A047</color>
     <color name="color_green_700">#388E3C</color>
     <color name="color_green_800">#2E7D32</color>
+    <color name="color_green_800_80t">#CC2E7D32</color>
 
     <color name="color_cyan_200">#80DEEA</color>
     <color name="color_cyan_300">#4DD0E1</color>
@@ -224,6 +227,8 @@
     <color name="color_beige_9">#abab9a</color>
     <color name="color_beige_10">#a2a28f</color>
     <color name="color_beige_11">#999985</color>
+    <color name="color_beige_12">#90907A</color>
+
 
     <color name="color_rose_02">#b3fff4f3</color>
     <color name="color_rose_03">#fff4f3</color>
