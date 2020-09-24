@@ -1,7 +1,9 @@
 package com.github.jairrab.androidutilities.utility.library
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import com.github.jairrab.androidutilities.extensionfunctions.*
 import com.github.jairrab.androidutilities.utility.AndroidUtility
 
@@ -76,5 +78,30 @@ internal class AndroidUtilityLibrary(private val context: Context) : AndroidUtil
 
     override fun updateThemeStyle(styleId: Int) {
         this.styleId = styleId
+    }
+
+    override fun sendEmailIntent(
+        email: String,
+        subject: String,
+        chooserTitle: String,
+        noEmailApp: String
+    ) {
+        val uri = Uri.fromParts("mailto", email, null)
+        val emailIntent = Intent(Intent.ACTION_SENDTO, uri)
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject)
+        if (emailIntent.resolveActivity(context.packageManager) != null) {
+            context.startActivity(Intent.createChooser(emailIntent, chooserTitle))
+        } else {
+            showToast(noEmailApp)
+        }
+    }
+
+    override fun showShareIntent(subject: String, chooserTitle: String, extraBody: String) {
+        val share = Intent(Intent.ACTION_SEND)
+        share.type = "text/plain"
+        share.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        share.putExtra(Intent.EXTRA_SUBJECT, subject)
+        share.putExtra(Intent.EXTRA_TEXT, extraBody)
+        context.startActivity(Intent.createChooser(share, chooserTitle))
     }
 }

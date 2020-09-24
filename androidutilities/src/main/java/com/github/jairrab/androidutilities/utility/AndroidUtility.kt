@@ -24,6 +24,19 @@ interface AndroidUtility {
     fun showToast(text:String, duration:Int = Toast.LENGTH_LONG)
     fun updateThemeStyle(@StyleRes styleId: Int)
 
+    fun sendEmailIntent(
+        email: String = "support@email.com",
+        subject: String = "Tip, Tax and Travel Calculator Feedback",
+        chooserTitle: String = "Send email...",
+        noEmailApp: String = "We're sorry, no email application was detected.",
+    )
+
+    fun showShareIntent(
+        subject: String = "Check this out!",
+        chooserTitle: String = "Share link",
+        extraBody: String = "This app is amazing!",
+    )
+
     companion object {
         fun getInstance(context: Context): AndroidUtility {
             return AndroidUtilityLibrary(context)
