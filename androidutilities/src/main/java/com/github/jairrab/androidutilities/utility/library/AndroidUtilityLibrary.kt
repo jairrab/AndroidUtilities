@@ -80,6 +80,10 @@ internal class AndroidUtilityLibrary(private val context: Context) : AndroidUtil
         this.styleId = styleId
     }
 
+    override fun isDarkModeEnabled(): Boolean {
+        return context.isDarkModeEnabled()
+    }
+
     override fun sendEmailIntent(
         email: String,
         subject: String,

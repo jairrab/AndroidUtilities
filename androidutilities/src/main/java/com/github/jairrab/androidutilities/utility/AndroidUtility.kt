@@ -23,6 +23,7 @@ interface AndroidUtility {
     fun showToast(resId: Int, duration:Int = Toast.LENGTH_LONG)
     fun showToast(text:String, duration:Int = Toast.LENGTH_LONG)
     fun updateThemeStyle(@StyleRes styleId: Int)
+    fun isDarkModeEnabled(): Boolean
 
     fun sendEmailIntent(
         email: String = "support@email.com",
