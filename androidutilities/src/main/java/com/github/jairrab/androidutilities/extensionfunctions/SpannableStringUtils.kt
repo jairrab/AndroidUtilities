@@ -9,6 +9,8 @@ import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
 import android.text.style.StyleSpan
 import androidx.core.content.ContextCompat
+import com.github.jairrab.androidutilities.extensionfunctions.spannablespans.CircularRectSpan
+import com.github.jairrab.androidutilities.extensionfunctions.spannablespans.RoundedRectSpan
 
 fun SpannableString.spanBold(text: String): SpannableString {
     val s1 = indexOf(text)
@@ -52,5 +54,29 @@ fun SpannableString.spanSize(text: String, proportion: Float): SpannableString {
     val s1 = indexOf(text)
     val e1 = s1 + text.length
     setSpan(RelativeSizeSpan(proportion), s1, e1, SPAN_EXCLUSIVE_EXCLUSIVE)
+    return this
+}
+
+fun SpannableString.spanCircularRect(
+    text: String,
+    backgroundColor: Int,
+    textColor: Int,
+    radius: Int
+): SpannableString {
+    val s1 = indexOf(text)
+    val e1 = s1 + text.length
+    setSpan(CircularRectSpan(backgroundColor, textColor, radius), s1, e1, SPAN_EXCLUSIVE_EXCLUSIVE)
+    return this
+}
+
+fun SpannableString.roundedRectSpan(
+    text: String,
+    backgroundColor: Int,
+    textColor: Int,
+    radius: Int
+): SpannableString {
+    val s1 = indexOf(text)
+    val e1 = s1 + text.length
+    setSpan(RoundedRectSpan(backgroundColor, textColor, radius), s1, e1, SPAN_EXCLUSIVE_EXCLUSIVE)
     return this
 }
