@@ -13,9 +13,11 @@ fun SharedPreferences.saveDouble(
 }
 
 fun SharedPreferences.getDouble(
-    key: String
+    key: String,
+    defaultValue: Double = 0.0
 ): Double {
-    val a = this.getLong(key, 0)
+    val a = this.getLong(key, -1)
+    if (a == -1L) return defaultValue
     return a.toDoubleBits()
 }
 
