@@ -1,5 +1,6 @@
 package com.github.jairrab.androidutilities.utility.library
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
@@ -7,7 +8,10 @@ import android.net.Uri
 import com.github.jairrab.androidutilities.extensionfunctions.*
 import com.github.jairrab.androidutilities.utility.AndroidUtility
 
-internal class AndroidUtilityLibrary(private val context: Context) : AndroidUtility {
+internal class AndroidUtilityLibrary(
+    private val context: Context,
+    private val printUtil: PrintUtil
+) : AndroidUtility {
     private var styleId: Int? = null
 
     override fun getAttributeColor(attrId: Int): Int {
@@ -98,6 +102,14 @@ internal class AndroidUtilityLibrary(private val context: Context) : AndroidUtil
         } else {
             showToast(noEmailApp)
         }
+    }
+    
+    override fun printJob(context: Context, html: String, printJobName: String) {
+        printUtil.printJob(context, html, printJobName)
+    }
+
+    override fun destroy() {
+        printUtil.destroy()
     }
 
     override fun showShareIntent(subject: String, chooserTitle: String, extraBody: String) {

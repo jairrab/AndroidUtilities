@@ -1,5 +1,6 @@
 package com.github.jairrab.androidutilities.utility
 
+import android.app.Activity
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.widget.Toast
@@ -8,6 +9,7 @@ import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StyleRes
 import com.github.jairrab.androidutilities.utility.library.AndroidUtilityLibrary
+import com.github.jairrab.androidutilities.utility.library.PrintUtil
 
 interface AndroidUtility {
     fun getAttributeColor(@AttrRes attrId: Int): Int
@@ -27,7 +29,7 @@ interface AndroidUtility {
 
     fun sendEmailIntent(
         email: String = "support@email.com",
-        subject: String = "Tip, Tax and Travel Calculator Feedback",
+        subject: String = "Feedback",
         chooserTitle: String = "Send email...",
         noEmailApp: String = "We're sorry, no email application was detected.",
     )
@@ -38,9 +40,18 @@ interface AndroidUtility {
         extraBody: String = "This app is amazing!",
     )
 
+    /**
+     * Sends a print job the Android print manager. Context passed must be an activity context.
+     * Important: If context wrapper was used on calling activity, the original
+     * base context must be passed to [context]
+     */
+    fun printJob(context: Context, html: String, printJobName: String = "Print Job")
+    
+    fun destroy()
+
     companion object {
         fun getInstance(context: Context): AndroidUtility {
-            return AndroidUtilityLibrary(context)
+            return AndroidUtilityLibrary(context, PrintUtil())
         }
     }
 }
