@@ -1,8 +1,8 @@
 package com.github.jairrab.androidutilities.utility
 
-import android.app.Activity
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.widget.Toast
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorRes
@@ -10,6 +10,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StyleRes
 import com.github.jairrab.androidutilities.utility.library.AndroidUtilityLibrary
 import com.github.jairrab.androidutilities.utility.library.PrintUtil
+import java.io.File
 
 interface AndroidUtility {
     fun getAttributeColor(@AttrRes attrId: Int): Int
@@ -36,8 +37,17 @@ interface AndroidUtility {
 
     fun showShareIntent(
         subject: String = "Check this out!",
+        body: String = "This app is amazing!",
         chooserTitle: String = "Share link",
-        extraBody: String = "This app is amazing!",
+    )
+
+    fun showShareIntent(
+        subject: String = "Check this out!",
+        body: String = "This app is amazing!",
+        chooserTitle: String = "Share link",
+        noEmailApp: String = "No app available to share this file",
+        file: File,
+        fileAuthority: String,
     )
 
     /**
@@ -46,7 +56,12 @@ interface AndroidUtility {
      * base context must be passed to [context]
      */
     fun printJob(context: Context, html: String, printJobName: String = "Print Job")
-    
+    fun getMimeType(file: File): String?
+    fun getMimeType(file: File, fileAuthority: String): String?
+    fun getMimeType(uri: Uri): String?
+    fun getMimeTypeFromFileName(fileName: String): String?
+    fun getMimeTypeFromExtension(extension: String): String?
+
     fun destroy()
 
     companion object {

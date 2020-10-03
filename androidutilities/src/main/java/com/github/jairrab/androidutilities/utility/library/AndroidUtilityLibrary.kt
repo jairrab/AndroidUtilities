@@ -1,12 +1,18 @@
 package com.github.jairrab.androidutilities.utility.library
 
-import android.app.Activity
+import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.webkit.MimeTypeMap
+import androidx.core.content.FileProvider
 import com.github.jairrab.androidutilities.extensionfunctions.*
 import com.github.jairrab.androidutilities.utility.AndroidUtility
+import java.io.File
+import java.net.URLConnection
+import java.util.*
+
 
 internal class AndroidUtilityLibrary(
     private val context: Context,
@@ -103,21 +109,70 @@ internal class AndroidUtilityLibrary(
             showToast(noEmailApp)
         }
     }
-    
+
     override fun printJob(context: Context, html: String, printJobName: String) {
         printUtil.printJob(context, html, printJobName)
     }
 
-    override fun destroy() {
-        printUtil.destroy()
-    }
-
-    override fun showShareIntent(subject: String, chooserTitle: String, extraBody: String) {
+    override fun showShareIntent(subject: String, body: String, chooserTitle: String) {
         val share = Intent(Intent.ACTION_SEND)
         share.type = "text/plain"
         share.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         share.putExtra(Intent.EXTRA_SUBJECT, subject)
-        share.putExtra(Intent.EXTRA_TEXT, extraBody)
+        share.putExtra(Intent.EXTRA_TEXT, body)
         context.startActivity(Intent.createChooser(share, chooserTitle))
+    }
+
+    override fun showShareIntent(
+        subject: String,
+        body: String,
+        chooserTitle: String,
+        noEmailApp: String,
+        file: File,
+        fileAuthority: String
+    ) {
+        val uri = FileProvider.getUriForFile(context, fileAuthority, file)
+        val intent = Intent(Intent.ACTION_SEND)
+        intent.putExtra(Intent.EXTRA_TEXT, subject)
+        intent.putExtra(Intent.EXTRA_TEXT, body)
+        intent.type = getMimeType(uri)
+        intent.putExtra(Intent.EXTRA_STREAM, uri)
+        if (intent.resolveActivity(context.packageManager) != null) {
+            context.startActivity(Intent.createChooser(intent, chooserTitle))
+        } else {
+            showToast(noEmailApp)
+        }
+    }
+
+    override fun getMimeType(file: File): String? {
+        return getMimeTypeFromExtension(file.extension)
+    }
+
+    override fun getMimeType(file: File, fileAuthority: String): String? {
+        val uri = FileProvider.getUriForFile(context, fileAuthority, file)
+        return getMimeType(uri)
+    }
+
+    override fun getMimeType(uri: Uri): String? {
+        return if (uri.scheme == ContentResolver.SCHEME_CONTENT) {
+            context.contentResolver.getType(uri)
+        } else {
+            val extension = MimeTypeMap.getFileExtensionFromUrl(uri.toString())
+            getMimeTypeFromExtension(extension)
+        }
+    }
+
+    override fun getMimeTypeFromFileName(fileName: String): String? {
+        return getMimeTypeFromExtension(fileName.extension())
+    }
+
+    override fun getMimeTypeFromExtension(extension: String): String? {
+        return MimeTypeMap.getSingleton()
+            .getMimeTypeFromExtension(extension.toLowerCase(Locale.US))
+            ?: URLConnection.guessContentTypeFromName("filename.$this")
+    }
+
+    override fun destroy() {
+        printUtil.destroy()
     }
 }
