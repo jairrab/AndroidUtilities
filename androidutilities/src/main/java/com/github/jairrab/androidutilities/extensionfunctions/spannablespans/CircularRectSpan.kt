@@ -10,7 +10,7 @@ import kotlin.math.absoluteValue
 class CircularRectSpan(
     private val backgroundColor: Int,
     private val textColor: Int,
-    private val radius: Int
+    private val radiusCorner: Float = 0.5f,
 ) : ReplacementSpan() {
     override fun getSize(
         paint: Paint,
@@ -19,8 +19,9 @@ class CircularRectSpan(
         end: Int,
         fm: FontMetricsInt?
     ): Int {
-        val textWidth = paint.measureText(text.subSequence(start, end).toString())
-        return (radius * 2 + textWidth).toInt()
+        val subSequence = text.subSequence(start, end)
+        val textWidth = paint.measureText(subSequence.toString())
+        return textWidth.toInt()
     }
 
     override fun draw(
@@ -37,10 +38,10 @@ class CircularRectSpan(
         val width = paint.measureText(text.subSequence(start, end).toString())
         val upper = top.toFloat()
         val lower = bottom.toFloat()
-        val radiusCorner = ((upper - lower) / 2).absoluteValue
-        val rect = RectF(x - radius, upper, x + width + radius, lower)
+        val corner = ((upper - lower) * radiusCorner).absoluteValue
+        val rect = RectF(x, upper, x + width, lower)
         paint.color = backgroundColor
-        canvas.drawRoundRect(rect, radiusCorner, radiusCorner, paint)
+        canvas.drawRoundRect(rect, corner, corner, paint)
         paint.color = textColor
         canvas.drawText(text, start, end, x, y.toFloat(), paint)
     }
