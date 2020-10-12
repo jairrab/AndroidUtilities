@@ -1,4 +1,4 @@
-package com.github.jairrab.androidutilities.utility.library
+package com.github.jairrab.androidutilities.printutil
 
 import android.content.Context
 import android.os.Build

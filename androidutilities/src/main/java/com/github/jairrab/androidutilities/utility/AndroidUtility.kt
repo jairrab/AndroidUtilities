@@ -9,7 +9,7 @@ import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StyleRes
 import com.github.jairrab.androidutilities.utility.library.AndroidUtilityLibrary
-import com.github.jairrab.androidutilities.utility.library.PrintUtil
+import com.github.jairrab.androidutilities.printutil.PrintUtil
 import java.io.File
 
 interface AndroidUtility {

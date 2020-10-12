@@ -8,6 +8,7 @@ import android.net.Uri
 import android.webkit.MimeTypeMap
 import androidx.core.content.FileProvider
 import com.github.jairrab.androidutilities.extensionfunctions.*
+import com.github.jairrab.androidutilities.printutil.PrintUtil
 import com.github.jairrab.androidutilities.utility.AndroidUtility
 import java.io.File
 import java.net.URLConnection
