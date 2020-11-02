@@ -1,11 +1,11 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
-    //id 'com.github.dcendents.android-maven'
+    id 'com.github.dcendents.android-maven'
 }
 
 group = 'com.github.jairrab.androidutilities'
-version = '1.9.0'
+version = '2.0.0'
 
 android {
     compileSdkVersion 29
@@ -14,8 +14,6 @@ android {
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
