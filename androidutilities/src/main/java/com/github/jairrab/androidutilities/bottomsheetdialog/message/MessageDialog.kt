@@ -13,6 +13,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.github.jairrab.androidutilities.R
 import com.github.jairrab.androidutilities.bottomsheetdialog.BaseBottomSheetDialogFragment
+import com.github.jairrab.androidutilities.extensionfunctions.convertToPixelInt
 import java.io.Serializable
 
 class MessageDialog : BaseBottomSheetDialogFragment() {
@@ -42,8 +43,19 @@ class MessageDialog : BaseBottomSheetDialogFragment() {
         titleTextView.text = title
         messageTextView.text = text
         messageTextView.isVisible = text != null
-        okButton.text = ok ?: getString(android.R.string.ok)
-        cancelButton.text = cancel ?: getString(android.R.string.cancel)
+        okButton.text = ok
+        okButton.isVisible = ok != null
+        cancelButton.text = cancel
+        cancelButton.isVisible = cancel != null
+
+        //add bottom padding when ok and cancel buttons are hidden
+        if (ok == null && cancel == null) {
+            val paddingLeft = messageTextView.paddingLeft
+            val paddingTop = messageTextView.paddingTop
+            val paddingRight = messageTextView.paddingRight
+            val paddingBottom = messageTextView.paddingBottom + 10f.convertToPixelInt()
+            messageTextView.setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom)
+        }
 
         val bundle = Bundle().apply { putSerializable(DATA, data) }
         val intent = Intent().apply { putExtras(bundle) }
@@ -73,8 +85,8 @@ class MessageDialog : BaseBottomSheetDialogFragment() {
             requestCode: Int,
             title: String,
             text: CharSequence? = null,
-            ok: String? = null,
-            cancel: String? = null,
+            ok: String? = fragment.getString(android.R.string.ok),
+            cancel: String? = fragment.getString(android.R.string.cancel),
             data: Serializable? = null,
         ) {
             MessageDialog().apply {
