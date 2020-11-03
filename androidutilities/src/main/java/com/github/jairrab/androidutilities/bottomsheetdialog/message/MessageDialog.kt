@@ -57,8 +57,11 @@ class MessageDialog : BaseBottomSheetDialogFragment() {
             messageTextView.setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom)
         }
 
-        val bundle = Bundle().apply { putSerializable(DATA, data) }
-        val intent = Intent().apply { putExtras(bundle) }
+        val intent = Intent().apply {
+            val bundle = requireArguments()
+            bundle.putString(TAG, tag)
+            putExtras(bundle)
+        }
 
         okButton.setOnClickListener {
             targetFragment?.onActivityResult(requestCode, Activity.RESULT_OK, intent)
@@ -75,6 +78,7 @@ class MessageDialog : BaseBottomSheetDialogFragment() {
 
     companion object {
         const val DATA = "DATA"
+        const val TAG = "TAG"
         private const val TEXT = "TEXT"
         private const val TITLE = "TITLE"
         private const val OK = "OK"
@@ -88,6 +92,7 @@ class MessageDialog : BaseBottomSheetDialogFragment() {
             ok: String? = fragment.getString(android.R.string.ok),
             cancel: String? = fragment.getString(android.R.string.cancel),
             data: Serializable? = null,
+            tag: String? = null,
         ) {
             MessageDialog().apply {
                 arguments = Bundle().apply {
@@ -98,7 +103,7 @@ class MessageDialog : BaseBottomSheetDialogFragment() {
                     putSerializable(DATA, data)
                 }
                 setTargetFragment(fragment, requestCode)
-                show(fragment.parentFragmentManager, null)
+                show(fragment.parentFragmentManager, tag)
             }
         }
     }

@@ -8,6 +8,7 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/title"
+        style="@style/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -15,21 +16,18 @@
         android:layout_marginEnd="16dp"
         android:paddingTop="10dp"
         android:paddingBottom="20dp"
-        android:textColor="?android:textColorPrimary"
-        android:textSize="18sp"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Title" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/message"
+        style="@style/message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:paddingTop="0dp"
         android:paddingBottom="10dp"
-        android:textColor="?android:textColorPrimary"
-        android:textSize="15sp"
         app:layout_constraintTop_toBottomOf="@id/title"
         tools:text="This is a message block. Can be used for raising a question.\n\nDo you understand?" />
 
