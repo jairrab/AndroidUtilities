@@ -3,6 +3,7 @@ package com.github.jairrab.androidutilities.bottomsheetdialog.singleselectionlis
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.github.jairrab.androidutilities.databinding.ListHolderBinding
+import com.github.jairrab.androidutilities.extensionfunctions.getColorTintedDrawable
 
 class Holder(
     private val binding: ListHolderBinding,
@@ -20,10 +21,20 @@ class Holder(
         this.listItem = listItem
         binding.name.text = listItem.name
 
-        val iconVisible = listItem.iconResId != -1
+        val iconInfo = listItem.iconInfo
+        val iconVisible = iconInfo?.resId != -1
         if (iconVisible) {
             binding.icon.isVisible = true
-            binding.icon.setImageResource(listItem.iconResId)
+            val resId = iconInfo?.resId ?: return
+            if (resId != -1) {
+                val tintColor = iconInfo.tintColor
+                if (tintColor != -1) {
+                    val drawable = binding.icon.context.getColorTintedDrawable(resId, tintColor)
+                    binding.icon.setImageDrawable(drawable)
+                } else {
+                    binding.icon.setImageResource(resId)
+                }
+            }
         } else {
             binding.icon.isVisible = false
         }
