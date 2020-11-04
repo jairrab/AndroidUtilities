@@ -57,18 +57,22 @@ class MessageDialog : BaseBottomSheetDialogFragment() {
             messageTextView.setPadding(paddingLeft, paddingTop, paddingRight, paddingBottom)
         }
 
-        val intent = Intent().apply {
-            val bundle = requireArguments()
-            bundle.putString(TAG, tag)
-            putExtras(bundle)
-        }
-
         okButton.setOnClickListener {
+            val intent = Intent().apply {
+                val bundle = requireArguments()
+                bundle.putString(TAG, tag)
+                putExtras(bundle)
+            }
             targetFragment?.onActivityResult(requestCode, Activity.RESULT_OK, intent)
             dismiss()
         }
 
         cancelButton.setOnClickListener {
+            val intent = Intent().apply {
+                val bundle = requireArguments()
+                bundle.putString(TAG, tag)
+                putExtras(bundle)
+            }
             targetFragment?.onActivityResult(requestCode, Activity.RESULT_CANCELED, intent)
             dismiss()
         }
