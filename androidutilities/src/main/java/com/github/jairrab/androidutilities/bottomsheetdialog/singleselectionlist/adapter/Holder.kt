@@ -1,28 +1,29 @@
-package com.github.jairrab.androidutilities.bottomsheetdialog.singleselectionlist
+package com.github.jairrab.androidutilities.bottomsheetdialog.singleselectionlist.adapter
 
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.github.jairrab.androidutilities.bottomsheetdialog.singleselectionlist.ItemSelection
 import com.github.jairrab.androidutilities.databinding.ListHolderBinding
 import com.github.jairrab.androidutilities.extensionfunctions.getColorTintedDrawable
 
 class Holder(
     private val binding: ListHolderBinding,
-    private val onClick: (ListItem) -> Unit
+    private val onClick: (Int, ItemSelection) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
-    private lateinit var listItem: ListItem
+    private lateinit var itemSelection: ItemSelection
 
     init {
         binding.root.setOnClickListener {
-            onClick(listItem)
+            onClick(adapterPosition, itemSelection)
         }
     }
 
-    fun update(listItem: ListItem) {
-        this.listItem = listItem
-        binding.name.text = listItem.name
+    fun update(itemSelection: ItemSelection) {
+        this.itemSelection = itemSelection
+        binding.name.text = itemSelection.name
 
-        val iconInfo = listItem.iconInfo
-        val iconVisible = iconInfo?.resId != -1
+        val iconInfo = itemSelection.iconInfo
+        val iconVisible = iconInfo != null && iconInfo.resId != -1
         if (iconVisible) {
             binding.icon.isVisible = true
             val resId = iconInfo?.resId ?: return

@@ -12,6 +12,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.jairrab.androidutilities.bottomsheetdialog.BaseBottomSheetDialogFragment
+import com.github.jairrab.androidutilities.bottomsheetdialog.singleselectionlist.adapter.Adapter
 import com.github.jairrab.androidutilities.databinding.ListDialogBinding
 import java.io.Serializable
 
@@ -30,7 +31,7 @@ class SingleSelectionList : BaseBottomSheetDialogFragment() {
         val requestCode = targetRequestCode
         val title = requireArguments().getString(TITLE)
         val data = requireArguments().getSerializable(DATA)
-        val list = requireArguments().getParcelableArrayList<ListItem>(LIST) ?: ArrayList()
+        val list = requireArguments().getParcelableArrayList<ItemSelection>(LIST) ?: ArrayList()
 
         val log = "requestCode: $requestCode | title: $title | data: $data"
         Log.v("MessageDialog", log)
@@ -41,11 +42,12 @@ class SingleSelectionList : BaseBottomSheetDialogFragment() {
         recyclerView.run {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
-            adapter = Adapter(list) {
+            adapter = Adapter(list) { index, itemSelection ->
                 val intent = Intent().apply {
                     val bundle = requireArguments()
                     bundle.putString(TAG, this@SingleSelectionList.tag)
-                    bundle.putParcelable(LIST_ITEM_SELECTION, it)
+                    bundle.putInt(SELECTED_INDEX, index)
+                    bundle.putParcelable(LIST_ITEM_SELECTION, itemSelection)
                     putExtras(bundle)
                 }
                 targetFragment?.onActivityResult(requestCode, Activity.RESULT_OK, intent)
@@ -58,11 +60,10 @@ class SingleSelectionList : BaseBottomSheetDialogFragment() {
 
     companion object {
         const val DATA = "DATA"
+        const val SELECTED_INDEX = "SELECTED_INDEX"
         const val LIST_ITEM_SELECTION = "LIST_ITEM_SELECTION"
         const val TAG = "TAG"
         private const val TITLE = "TITLE"
-        private const val OK = "OK"
-        private const val CANCEL = "CANCEL"
         private const val LIST = "LIST"
 
         fun showSelections(
@@ -70,7 +71,7 @@ class SingleSelectionList : BaseBottomSheetDialogFragment() {
             requestCode: Int,
             title: String? = null,
             data: Serializable? = null,
-            list: List<ListItem>,
+            list: List<ItemSelection>,
             tag: String? = null,
         ) {
             SingleSelectionList().apply {
