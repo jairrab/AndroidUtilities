@@ -2,6 +2,7 @@ package com.github.jairrab.androidutilities.bottomsheetdialog.singleselectionlis
 
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.github.jairrab.androidutilities.R
 import com.github.jairrab.androidutilities.bottomsheetdialog.singleselectionlist.ItemSelection
 import com.github.jairrab.androidutilities.databinding.ListHolderBinding
 import com.github.jairrab.androidutilities.extensionfunctions.getColorTintedDrawable
@@ -18,7 +19,7 @@ class Holder(
         }
     }
 
-    fun update(itemSelection: ItemSelection) {
+    fun update(itemSelection: ItemSelection, selection: ItemSelection?) {
         this.itemSelection = itemSelection
         binding.name.text = itemSelection.name
 
@@ -38,6 +39,16 @@ class Holder(
             }
         } else {
             binding.icon.isVisible = false
+        }
+
+        if (selection == itemSelection) {
+            binding.check.isVisible = true
+            val resId = R.drawable.ic_outline_check_circle_24
+            val colorId = R.color.color_green_500
+            val drawable = binding.check.context.getColorTintedDrawable(resId, colorId, true)
+            binding.check.setImageDrawable(drawable)
+        } else {
+            binding.check.isVisible = false
         }
     }
 }

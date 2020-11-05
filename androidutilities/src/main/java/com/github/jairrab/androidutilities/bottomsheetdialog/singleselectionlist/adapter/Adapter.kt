@@ -8,6 +8,7 @@ import com.github.jairrab.androidutilities.databinding.ListHolderBinding
 
 class Adapter(
     private val itemSelections: List<ItemSelection>,
+    private val selection: ItemSelection? = null,
     private val onClick: (Int, ItemSelection) -> Unit
 ) : RecyclerView.Adapter<Holder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -17,7 +18,7 @@ class Adapter(
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.update(itemSelections[position])
+        holder.update(itemSelections[position], selection)
     }
 
     override fun getItemCount() = itemSelections.size

@@ -10,8 +10,7 @@ data class ItemSelection(
     private constructor(parcel: Parcel) : this(
         parcel.readString() ?: "",
         parcel.readParcelable(IconInfo::class.java.classLoader)
-    ) {
-    }
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(name)

@@ -28,10 +28,24 @@
         android:textColor="?android:textColorPrimary"
         app:autoSizeMaxTextSize="24sp"
         app:autoSizeTextType="uniform"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/check"
         app:layout_constraintStart_toEndOf="@id/icon"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_goneMarginStart="0dp"
         tools:text="abc" />
+
+    <ImageView
+        android:id="@+id/check"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:importantForAccessibility="no"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/name"
+        app:layout_constraintTop_toTopOf="@id/name"
+        tools:src="@drawable/ic_outline_check_circle_24"
+        tools:tint="@color/color_green_400"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

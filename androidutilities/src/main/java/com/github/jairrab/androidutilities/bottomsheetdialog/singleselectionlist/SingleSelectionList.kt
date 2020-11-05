@@ -32,9 +32,11 @@ class SingleSelectionList : BaseBottomSheetDialogFragment() {
         val title = requireArguments().getString(TITLE)
         val data = requireArguments().getSerializable(DATA)
         val list = requireArguments().getParcelableArrayList<ItemSelection>(LIST) ?: ArrayList()
+        val selection = requireArguments().getParcelable<ItemSelection>(LIST_ITEM_SELECTION)
 
-        val log = "requestCode: $requestCode | title: $title | data: $data"
-        Log.v("MessageDialog", log)
+        val listText = "selection: $selection| list: $list"
+        val log = "requestCode: $requestCode | title: $title | $listText  | data: $data"
+        Log.v(logTag, log)
 
         titleTextView.text = title
         titleTextView.isVisible = title != null
@@ -42,7 +44,7 @@ class SingleSelectionList : BaseBottomSheetDialogFragment() {
         recyclerView.run {
             layoutManager = LinearLayoutManager(requireContext())
             setHasFixedSize(true)
-            adapter = Adapter(list) { index, itemSelection ->
+            adapter = Adapter(list, selection) { index, itemSelection ->
                 val intent = Intent().apply {
                     val bundle = requireArguments()
                     bundle.putString(TAG, this@SingleSelectionList.tag)
@@ -52,6 +54,11 @@ class SingleSelectionList : BaseBottomSheetDialogFragment() {
                 }
                 targetFragment?.onActivityResult(requestCode, Activity.RESULT_OK, intent)
                 dismiss()
+            }
+            if (selection != null) {
+                val position = list.indexOf(selection)
+                Log.v(logTag, "Scrolling to $position | $selection")
+                recyclerView.scrollToPosition(position)
             }
         }
 
@@ -65,13 +72,15 @@ class SingleSelectionList : BaseBottomSheetDialogFragment() {
         const val TAG = "TAG"
         private const val TITLE = "TITLE"
         private const val LIST = "LIST"
+        private const val logTag = "SingleSelectionList"
 
         fun showSelections(
             fragment: Fragment,
             requestCode: Int,
+            list: List<ItemSelection>,
             title: String? = null,
             data: Serializable? = null,
-            list: List<ItemSelection>,
+            selection: ItemSelection? = null,
             tag: String? = null,
         ) {
             SingleSelectionList().apply {
@@ -79,6 +88,7 @@ class SingleSelectionList : BaseBottomSheetDialogFragment() {
                     putString(TITLE, title)
                     putSerializable(DATA, data)
                     putParcelableArrayList(LIST, ArrayList(list))
+                    putParcelable(LIST_ITEM_SELECTION, selection)
                 }
                 setTargetFragment(fragment, requestCode)
                 show(fragment.parentFragmentManager, tag)

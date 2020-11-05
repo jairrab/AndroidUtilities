@@ -1,9 +1,15 @@
 package com.github.jairrab.androidutilities.bottomsheetdialog
 
+import android.app.Dialog
+import android.os.Bundle
+import android.view.View
+import com.github.jairrab.androidutilities.R
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 abstract class BaseBottomSheetDialogFragment : BottomSheetDialogFragment(){
-    /*override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return super.onCreateDialog(savedInstanceState).apply {
             setOnShowListener {
                 val bottomSheetDialog = it as BottomSheetDialog
@@ -14,5 +20,5 @@ abstract class BaseBottomSheetDialogFragment : BottomSheetDialogFragment(){
                 behavior.skipCollapsed = true
             }
         }
-    }*/
+    }
 }
