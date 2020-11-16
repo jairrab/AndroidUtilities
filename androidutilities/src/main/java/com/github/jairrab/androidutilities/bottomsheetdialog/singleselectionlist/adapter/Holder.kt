@@ -41,7 +41,11 @@ class Holder(
             binding.icon.isVisible = false
         }
 
-        if (selection == itemSelection) {
+        val a = itemSelection.name == selection?.name
+        val b = itemSelection.iconInfo?.resId == selection?.iconInfo?.resId
+        val isSelected = a == b
+
+        if (isSelected) {
             binding.check.isVisible = true
             val resId = R.drawable.ic_outline_check_circle_24
             val colorId = R.color.color_green_500
