@@ -43,7 +43,7 @@ class Holder(
 
         val a = itemSelection.name == selection?.name
         val b = itemSelection.iconInfo?.resId == selection?.iconInfo?.resId
-        val isSelected = a == b
+        val isSelected = a && b
 
         if (isSelected) {
             binding.check.isVisible = true
