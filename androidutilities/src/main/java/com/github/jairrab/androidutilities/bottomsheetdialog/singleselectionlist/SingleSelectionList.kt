@@ -36,7 +36,7 @@ class SingleSelectionList : BaseBottomSheetDialogFragment() {
 
         val listText = "selection: $selection| list: $list"
         val log = "requestCode: $requestCode | title: $title | $listText  | data: $data"
-        Log.v(logTag, log)
+        Log.v(LOG_TAG, log)
 
         titleTextView.text = title
         titleTextView.isVisible = title != null
@@ -57,7 +57,7 @@ class SingleSelectionList : BaseBottomSheetDialogFragment() {
             }
             if (selection != null) {
                 val position = list.indexOf(selection)
-                Log.v(logTag, "Scrolling to $position | $selection")
+                Log.v(LOG_TAG, "Scrolling to $position | $selection")
                 recyclerView.scrollToPosition(position)
             }
         }
@@ -72,7 +72,7 @@ class SingleSelectionList : BaseBottomSheetDialogFragment() {
         const val TAG = "TAG"
         private const val TITLE = "TITLE"
         private const val LIST = "LIST"
-        private const val logTag = "SingleSelectionList"
+        private const val LOG_TAG = "SingleSelectionList"
 
         fun showSelections(
             fragment: Fragment,
