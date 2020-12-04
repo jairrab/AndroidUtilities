@@ -32,7 +32,7 @@ class MessageDialog : BaseBottomSheetDialogFragment() {
 
         val requestCode = targetRequestCode
         val text = requireArguments().getCharSequence(TEXT)
-        val title = requireArguments().getString(TITLE)
+        val title = requireArguments().getCharSequence(TITLE)
         val data = requireArguments().getSerializable(DATA)
         val ok = requireArguments().getString(OK)
         val cancel = requireArguments().getString(CANCEL)
@@ -91,7 +91,7 @@ class MessageDialog : BaseBottomSheetDialogFragment() {
         fun showMessage(
             fragment: Fragment,
             requestCode: Int,
-            title: String,
+            title: CharSequence,
             text: CharSequence? = null,
             ok: String? = fragment.getString(android.R.string.ok),
             cancel: String? = fragment.getString(android.R.string.cancel),
@@ -101,7 +101,7 @@ class MessageDialog : BaseBottomSheetDialogFragment() {
             MessageDialog().apply {
                 arguments = Bundle().apply {
                     putCharSequence(TEXT, text)
-                    putString(TITLE, title)
+                    putCharSequence(TITLE, title)
                     putString(OK, ok)
                     putString(CANCEL, cancel)
                     putSerializable(DATA, data)
