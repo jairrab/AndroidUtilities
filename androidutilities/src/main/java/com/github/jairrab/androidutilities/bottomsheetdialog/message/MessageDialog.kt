@@ -97,6 +97,7 @@ class MessageDialog : BaseBottomSheetDialogFragment() {
             cancel: String? = fragment.getString(android.R.string.cancel),
             data: Serializable? = null,
             tag: String? = null,
+            cancellable: Boolean = true,
         ) {
             MessageDialog().apply {
                 arguments = Bundle().apply {
@@ -107,6 +108,7 @@ class MessageDialog : BaseBottomSheetDialogFragment() {
                     putSerializable(DATA, data)
                 }
                 setTargetFragment(fragment, requestCode)
+                isCancelable = cancellable
                 show(fragment.parentFragmentManager, tag)
             }
         }
