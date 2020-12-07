@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputType
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -40,6 +41,7 @@ class TextInputDialog : BaseBottomSheetDialogFragment() {
         val data = requireArguments().getSerializable(DATA)
         val ok = requireArguments().getString(OK)
         val cancel = requireArguments().getString(CANCEL)
+        val inputType = requireArguments().getInt(INPUT_TYPE, -1)
 
         val log = "requestCode: $requestCode | title: $title | text: $text | data: $data"
         Log.v("TextInputDialog", log)
@@ -49,6 +51,7 @@ class TextInputDialog : BaseBottomSheetDialogFragment() {
         okButton.text = ok
         cancelButton.text = cancel
         cancelButton.isVisible = cancel != null
+        if (inputType != -1) textInputTextView.inputType = inputType
 
         okButton.setOnClickListener {
             val textInput = textInputTextView.text.toString()
@@ -109,7 +112,11 @@ class TextInputDialog : BaseBottomSheetDialogFragment() {
         private const val CANCEL = "CANCEL"
         private const val OK = "OK"
         private const val TITLE = "TITLE"
+        private const val INPUT_TYPE = "INPUT_TYPE"
 
+        /**
+         * For [inputType], please refer to [InputType] static int constants
+         */
         fun showTextInput(
             fragment: Fragment,
             requestCode: Int,
@@ -120,7 +127,8 @@ class TextInputDialog : BaseBottomSheetDialogFragment() {
             data: Serializable? = null,
             tag: String? = null,
             blankReturnToastMessage: String? = "Please don't leave this entry blank.",
-            dismissOnOkWhenBlank: Boolean = blankReturnToastMessage == null
+            dismissOnOkWhenBlank: Boolean = blankReturnToastMessage == null,
+            inputType: Int = -1,
         ) {
             TextInputDialog().apply {
                 arguments = Bundle().apply {
@@ -131,6 +139,7 @@ class TextInputDialog : BaseBottomSheetDialogFragment() {
                     putString(OK, ok)
                     putString(CANCEL, cancel)
                     putSerializable(DATA, data)
+                    putInt(INPUT_TYPE, inputType)
                 }
                 setTargetFragment(fragment, requestCode)
                 show(fragment.parentFragmentManager, tag)
