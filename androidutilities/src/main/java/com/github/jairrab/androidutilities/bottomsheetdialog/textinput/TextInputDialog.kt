@@ -36,8 +36,8 @@ class TextInputDialog : BaseBottomSheetDialogFragment() {
         val requestCode = targetRequestCode
         val blankReturnToastMessage = requireArguments().getString(BLANK_RETURN_MESSAGE)
         val dismissOnOkWhenBlank = requireArguments().getBoolean(DISMISS_ON_OK_WHEN_BLANK)
-        val title = requireArguments().getString(TITLE)
-        val text = requireArguments().getString(TEXT)
+        val title = requireArguments().getCharSequence(TITLE)
+        val text = requireArguments().getCharSequence(TEXT)
         val data = requireArguments().getSerializable(DATA)
         val ok = requireArguments().getString(OK)
         val cancel = requireArguments().getString(CANCEL)
@@ -120,7 +120,7 @@ class TextInputDialog : BaseBottomSheetDialogFragment() {
         fun showTextInput(
             fragment: Fragment,
             requestCode: Int,
-            title: String,
+            title: CharSequence,
             text: CharSequence? = null,
             ok: String? = fragment.getString(android.R.string.ok),
             cancel: String? = fragment.getString(android.R.string.cancel),
@@ -132,7 +132,7 @@ class TextInputDialog : BaseBottomSheetDialogFragment() {
         ) {
             TextInputDialog().apply {
                 arguments = Bundle().apply {
-                    putString(TITLE, title)
+                    putCharSequence(TITLE, title)
                     putCharSequence(TEXT, text)
                     putString(BLANK_RETURN_MESSAGE, blankReturnToastMessage)
                     putBoolean(DISMISS_ON_OK_WHEN_BLANK, dismissOnOkWhenBlank)
