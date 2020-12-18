@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.github.jairrab.androidutilities.bottomsheetdialog.BaseBottomSheetDialogFragment
 import com.github.jairrab.androidutilities.databinding.DateDialogBinding
@@ -22,22 +23,30 @@ class DatePickerBottomDialog : BaseBottomSheetDialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding = DateDialogBinding.inflate(inflater, container, false)
 
         val requestCode = targetRequestCode
-        val date = requireArguments().getLong(DATE)
+        val dateInMills = requireArguments().getLong(DATE)
         val title = requireArguments().getString(TITLE)
         val data = requireArguments().getSerializable(DATA)
-        val initialDate = if (date == 0L) Date().time else date
+        val initialDate = if (dateInMills == 0L) Date().time else dateInMills
 
         val log = "requestCode: $requestCode | title: $title | data: $data"
         Log.v(LOG_TAG, log)
 
         binding.title.text = title
+        binding.title.isVisible = !title.isNullOrBlank()
 
-        binding.calendar.date = initialDate
-        binding.calendar.setOnDateChangeListener { _, year, month, dayOfMonth ->
+        val date = Date(initialDate)
+        val calendar = Calendar.getInstance()
+        calendar.time = date
+
+        val setYear = calendar.get(Calendar.YEAR)
+        val setMonth = calendar.get(Calendar.MONTH)
+        val setDay = calendar.get(Calendar.DATE)
+
+        binding.calendar.init(setYear, setMonth, setDay) { _, year, month, dayOfMonth ->
             dateSelection = getTimeInMills(year, month, dayOfMonth)
         }
 
@@ -48,6 +57,7 @@ class DatePickerBottomDialog : BaseBottomSheetDialogFragment() {
                 bundle.putLong(DATE, dateSelection)
                 putExtras(bundle)
             }
+
             targetFragment?.onActivityResult(requestCode, Activity.RESULT_OK, intent)
 
             dismiss()
