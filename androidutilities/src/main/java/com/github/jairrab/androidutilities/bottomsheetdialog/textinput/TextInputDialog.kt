@@ -129,6 +129,7 @@ class TextInputDialog : BaseBottomSheetDialogFragment() {
             blankReturnToastMessage: String? = "Please don't leave this entry blank.",
             dismissOnOkWhenBlank: Boolean = blankReturnToastMessage == null,
             inputType: Int = -1,
+            cancellable: Boolean = true,
         ) {
             TextInputDialog().apply {
                 arguments = Bundle().apply {
@@ -141,6 +142,7 @@ class TextInputDialog : BaseBottomSheetDialogFragment() {
                     putSerializable(DATA, data)
                     putInt(INPUT_TYPE, inputType)
                 }
+                isCancelable = cancellable
                 setTargetFragment(fragment, requestCode)
                 show(fragment.parentFragmentManager, tag)
             }
