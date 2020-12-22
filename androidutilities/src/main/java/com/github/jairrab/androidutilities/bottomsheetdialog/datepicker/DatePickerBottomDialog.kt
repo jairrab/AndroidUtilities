@@ -15,7 +15,7 @@ import com.github.jairrab.androidutilities.databinding.DateDialogBinding
 import java.io.Serializable
 import java.util.*
 
-class DatePickerBottomDialog : BaseBottomSheetDialogFragment() {
+class DatePickerBottomDialog : BaseBottomSheetDialogFragment(false) {
     private var dateSelection = Date().time
 
     @SuppressLint("InflateParams", "LogNotTimber")

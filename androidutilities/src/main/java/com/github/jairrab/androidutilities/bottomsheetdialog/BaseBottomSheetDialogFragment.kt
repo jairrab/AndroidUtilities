@@ -8,7 +8,9 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-abstract class BaseBottomSheetDialogFragment : BottomSheetDialogFragment(){
+abstract class BaseBottomSheetDialogFragment(
+    private val isDraggable: Boolean = true,
+) : BottomSheetDialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return super.onCreateDialog(savedInstanceState).apply {
             setOnShowListener {
@@ -17,6 +19,7 @@ abstract class BaseBottomSheetDialogFragment : BottomSheetDialogFragment(){
                     ?: return@setOnShowListener
                 val behavior = BottomSheetBehavior.from(bottomSheet)
                 behavior.state = BottomSheetBehavior.STATE_EXPANDED
+                behavior.isDraggable = isDraggable
                 behavior.skipCollapsed = true
             }
         }
