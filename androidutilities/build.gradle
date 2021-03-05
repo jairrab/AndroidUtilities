@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'com.github.jairrab.androidutilities'
-version = '2.5.1'
+version = '2.5.2'
 
 android {
     compileSdkVersion 30
