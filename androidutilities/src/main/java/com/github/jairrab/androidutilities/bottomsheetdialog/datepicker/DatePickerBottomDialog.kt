@@ -27,10 +27,10 @@ class DatePickerBottomDialog : BaseBottomSheetDialogFragment(false) {
         val binding = DateDialogBinding.inflate(inflater, container, false)
 
         val requestCode = targetRequestCode
-        val dateInMills = requireArguments().getLong(DATE)
+        val initialDate = requireArguments().getLong(DATE)
+        val minimumDate = requireArguments().getLong(MINIMUM_DATE)
         val title = requireArguments().getString(TITLE)
         val data = requireArguments().getSerializable(DATA)
-        val initialDate = if (dateInMills == 0L) Date().time else dateInMills
 
         val log = "requestCode: $requestCode | title: $title | data: $data"
         Log.v(LOG_TAG, log)
@@ -46,8 +46,14 @@ class DatePickerBottomDialog : BaseBottomSheetDialogFragment(false) {
         val setMonth = calendar.get(Calendar.MONTH)
         val setDay = calendar.get(Calendar.DATE)
 
-        binding.calendar.init(setYear, setMonth, setDay) { _, year, month, dayOfMonth ->
-            dateSelection = getTimeInMills(year, month, dayOfMonth)
+        binding.calendar.apply {
+            init(setYear, setMonth, setDay) { _, year, month, dayOfMonth ->
+                dateSelection = getTimeInMills(year, month, dayOfMonth)
+            }
+
+            if (minimumDate != -1L) {
+                minDate = minimumDate
+            }
         }
 
         binding.ok.setOnClickListener {
@@ -78,6 +84,7 @@ class DatePickerBottomDialog : BaseBottomSheetDialogFragment(false) {
     companion object {
         const val DATA = "DATA"
         const val DATE = "DATE"
+        const val MINIMUM_DATE = "MINIMUM_DATE"
         const val TAG = "TAG"
         private const val TITLE = "TITLE"
         private const val LOG_TAG = "DatePickerBottomDialog"
@@ -85,7 +92,8 @@ class DatePickerBottomDialog : BaseBottomSheetDialogFragment(false) {
         fun showDatePicker(
             fragment: Fragment,
             requestCode: Int,
-            date: Long = 0,
+            date: Long = Date().time,
+            minimumDate: Long = -1,
             title: String? = null,
             data: Serializable? = null,
             tag: String? = null,
@@ -95,6 +103,7 @@ class DatePickerBottomDialog : BaseBottomSheetDialogFragment(false) {
                     putString(TITLE, title)
                     putSerializable(DATA, data)
                     putLong(DATE, date)
+                    putLong(MINIMUM_DATE, minimumDate)
                 }
                 setTargetFragment(fragment, requestCode)
                 show(fragment.parentFragmentManager, tag)
